@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>jtechlog</groupId>
+    <artifactId>jtechlog-pdf-font-docbkx</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <docbkx-tools.version>2.0.17</docbkx-tools.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.agilejava.docbkx</groupId>
+                <artifactId>docbkx-fop-support</artifactId>
+                <version>${docbkx-tools.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <ansi>false</ansi>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.agilejava.docbkx</groupId>
+                <artifactId>docbkx-maven-plugin</artifactId>
+                <version>${docbkx-tools.version}</version>
+
+                <executions>
+                    <execution>
+                        <id>generate-pdf</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate-pdf</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <bodyFontFamily>DejaVuLGCSans</bodyFontFamily>
+                    <bodyFontFamily>DejaVuLGCSerif</bodyFontFamily>
+                    <fonts>
+                        <font>
+                            <name>DejaVuLGCSans</name>
+                            <style>normal</style>
+                            <weight>bold</weight>
+                            <embedFile>${basedir}/src/fonts/DejaVuLGCSans-Bold.ttf</embedFile>
+                            <metricsFile>${basedir}/target/fonts/DejaVuLGCSans-Bold-metrics.xml</metricsFile>
+                        </font>
+                        <font>
+                            <name>DejaVuLGCSerif</name>
+                            <style>normal</style>
+                            <weight>normal</weight>
+                            <embedFile>${basedir}/src/fonts/DejaVuLGCSerif.ttf</embedFile>
+                            <metricsFile>${basedir}/target/fonts/DejaVuLGCSerif-metrics.xml</metricsFile>
+                        </font>
+                    </fonts>
+
+                    <customizationParameters>
+                        <parameter>
+                            <name>title.font.family</name>
+                            <value>DejaVuLGCSans</value>
+                        </parameter>
+                        <parameter>
+                            <name>body.font.family</name>
+                            <value>DejaVuLGCSerif</value>
+                        </parameter>
+                    </customizationParameters>
+
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
